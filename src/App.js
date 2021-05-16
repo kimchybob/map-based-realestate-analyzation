@@ -1,24 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import NavBar from './Component/NavBar/NavBar';
+import Map from './Pages/Map';
+import { Grid } from '@material-ui/core';
+import NavToolbar from "./Component/NavBar/Toolbar"
+import Leaflet from './Pages/Leaflet';
+import Test from './Pages/test';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Hello World
-        </a>
-      </header>
-    </div>
+    <Grid container direction="column">
+      <NavBar />
+      <Test />
+    </Grid>
+    // <NavToolbar />
   );
 }
 

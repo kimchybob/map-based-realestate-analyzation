@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Map from './pages/Map'
+import Map from './Pages/Map'
 import reportWebVitals from './reportWebVitals';
+import "leaflet/dist/leaflet.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Map />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
