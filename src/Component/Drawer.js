@@ -10,10 +10,19 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
+import Collapse from '@material-ui/core/Collapse';
+import SettingsIcon from '@material-ui/icons/Settings';
+import Test from "../Pages/test"
+
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+
   },
   fullList: {
     width: 'auto',
@@ -23,11 +32,19 @@ const useStyles = makeStyles({
 export default function SideDrawer() {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
+    left: true,
   });
+
+  const [listopen, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!listopen);
+  };
+
+  const renderData = (event) => {
+    console.log(event.target.innerText);
+    Test.setStandard(event.target.innerText);
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -37,40 +54,68 @@ export default function SideDrawer() {
     setState({ ...state, [anchor]: open });
   };
 
+  const standards = [
+    'auction_activity_auctionclearancerate',
+    'auction_activity_auctionlistedcount',
+    'for_sale_both_auction_private_treaty_averageprice',
+    'for_sale_both_auction_private_treaty_maximumprice',
+    "for_sale_both_auction_private_treaty_medianprice",
+    "for_sale_both_auction_private_treaty_minimumprice",
+    "for_sale_both_auction_private_treaty_standarddeviationprice",
+    "for_sale_both_auction_private_treaty_totalprice",
+    "sold_both_auction_private_treaty_averageprice",
+    "sold_both_auction_private_treaty_maximumprice",
+    "sold_both_auction_private_treaty_medianprice",
+    "sold_both_auction_private_treaty_minimumprice",
+    "sold_both_auction_private_treaty_standarddeviationprice",
+    "sold_both_auction_private_treaty_totalprice",
+  ];
+
   const list = (anchor) => (
     <div
       className={clsx(classes.list, {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button onClick={handleClick}>
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary="render" />
+          {listopen ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={listopen} timeout="auto" onClick={toggleDrawer(anchor, false)}>
+          <List component="div" disablePadding>
+            {standards.map((text) => (
+              <ListItem key={text} aria-label={text} button className={classes.nested} onClick={renderData}>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
       </List>
       <Divider />
-      <List>
+      {/* <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </div>
   );
 
   return (
     <div>
-      {['left', 'right', 'top', 'bottom'].map((anchor) => (
+      {[''].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <IconButton onClick={toggleDrawer(anchor, true)} edge="start" color="inherit" className={classes.menuButton} aria-label="menu">
+            <MenuIcon />{anchor}
+          </IconButton>
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>

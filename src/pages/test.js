@@ -17,17 +17,19 @@ function getData(suburbCode) {
 function getAmount(suburbCode) {
   return data[suburbCode].auction_activity_auctionlistedcount;
 }
- 
+
 export default function Test(props) {
 
     const position = [-37.805, 145.00];
     const classes = useStyles();
+    const [standard, setStandard] = React.useState("auction_activity_auctionlistedcount");
 
+    console.log(standard);
     const OnEachBlock = (block,layer) =>{
       const suburbCode = block.properties.SA3_code;
       const data = getData(suburbCode);
       const suburbName = block.properties.SA3_name + "\n" + data;
-      console.log(getAmount(suburbCode));
+      // console.log(getAmount(suburbCode));
       layer.bindPopup(suburbName);
       const amount = getAmount(suburbCode);
       if(300<amount && amount<=600){layer.options.fillOpacity=0.3;}

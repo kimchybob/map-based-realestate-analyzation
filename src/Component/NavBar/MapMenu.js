@@ -17,7 +17,7 @@ export default function MapMenu(props) {
   return (
     <div>
     <Grid item xs={2}>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} className={classes.navbarButton}>
         Map
       </Button>
       <Menu

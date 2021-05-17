@@ -15,7 +15,7 @@ export default function NavBar(props) {
 
 
   return (
-    <Grid container direction="row" justify="flex-end" alignItems="center" className={classes.NavBar}>
+    <Grid container direction="row" justify="flex-end" alignItems="center" >
       <AppBar position="static" style={{backgroundColor:"#c49991"}}>
         <Toolbar>
           <ScenarioMenu />
