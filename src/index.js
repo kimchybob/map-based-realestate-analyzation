@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Map from './Pages/Map'
 import reportWebVitals from './reportWebVitals';
 import "leaflet/dist/leaflet.css";
 

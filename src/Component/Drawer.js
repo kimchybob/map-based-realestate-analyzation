@@ -29,7 +29,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SideDrawer() {
+export default function SideDrawer(props) {
+  const {changeStandard} = props;
+
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: true,
@@ -43,7 +45,7 @@ export default function SideDrawer() {
 
   const renderData = (event) => {
     console.log(event.target.innerText);
-    Test.setStandard(event.target.innerText);
+    changeStandard(event.target.innerText);
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -84,7 +86,7 @@ export default function SideDrawer() {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary="render" />
+          <ListItemText primary="colored by" />
           {listopen ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={listopen} timeout="auto" onClick={toggleDrawer(anchor, false)}>

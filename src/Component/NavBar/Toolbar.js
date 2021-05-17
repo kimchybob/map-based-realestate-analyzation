@@ -13,21 +13,22 @@ import HomeButton from "./HomeButton";
 import FilterDrawer from "../Drawer"
 
 
-export default function NavToolbar() {
+export default function NavToolbar(props) {
+  const {changeStandard} = props;
   const classes = useStyles();
 
   return (
     // <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
-          <FilterDrawer />
+          <FilterDrawer changeStandard={(name) => props.changeStandard(name)}/>
           <Typography variant="h6" className={classes.title}>
             Real estate Analyze
           </Typography>
           <ScenarioMenu />
           <MapMenu />
           <HomeButton />
-        </Toolbar>
+        </Toolbar >
       </AppBar>
     // </div>
   );

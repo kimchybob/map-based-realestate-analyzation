@@ -5,14 +5,11 @@ import { Grid } from '@material-ui/core';
 import ToolBar from "./Component/NavBar/Toolbar"
 // import Leaflet from './Pages/Leaflet';
 import Test from './Pages/test';
+import MapPage from './Pages/MapPage';
 
 function App() {
   return (
-    <Grid container direction="column">
-      <ToolBar />
-      <Test />
-    </Grid>
-    // <NavToolbar />
+    <Test />
   );
 }
 
