@@ -3,26 +3,34 @@ import { Grid } from '@material-ui/core';
 import ToolBar from "../Component/NavBar/Toolbar"
 // import Leaflet from './Pages/Leaflet';
 import Test from './test';
+import Leaflet from './Leaflet';
 
 
 
  
 class MapPage extends Component {    
     state = {
-        standard : "auction_activity_auctionlistedcount"
+        standard : "for_sale_both_auction_private_treaty_averageprice"
     }
 
-    setStandard =(name) =>{
-        this.setState({name});
+
+    setStandard(standard){
+        this.setState({standard});
+        console.log(this.state.standard);
     }
 
 
 
     render() {
 
-    return (
-        <Test standard={this.state.standard} setStandard={(name) =>this.setStandard(name)}/>
-    );
+        return (
+            <Grid container>
+                {this.state.standard}
+                <ToolBar standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} />
+                <Leaflet standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} onChange={this.stateChange}/>
+            </Grid>
+            
+        );
     }
 }
  

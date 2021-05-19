@@ -30,12 +30,13 @@ const useStyles = makeStyles({
 });
 
 export default function SideDrawer(props) {
-  const {changeStandard} = props;
+  // const changeStandard = props;
 
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: true,
   });
+  console.log(props.standard)
 
   const [listopen, setOpen] = React.useState(true);
 
@@ -45,7 +46,7 @@ export default function SideDrawer(props) {
 
   const renderData = (event) => {
     console.log(event.target.innerText);
-    changeStandard(event.target.innerText);
+    props.changeStandard(event.target.innerText);
   };
 
   const toggleDrawer = (anchor, open) => (event) => {

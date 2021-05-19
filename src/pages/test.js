@@ -1,11 +1,12 @@
 import React, { Component, useCallback } from 'react';
 import { Grid } from '@material-ui/core';
-import { MapContainer, TileLayer, Map, Popup, GeoJSON } from 'react-leaflet'
+import { MapContainer, TileLayer, Map, Popup } from 'react-leaflet'
 import MelGeojson from "../data/SA3Geo.json"
 import data from "../data/houseMarket_2019_Feb.json"
 import "leaflet/dist/leaflet.css" 
 import useStyles from "./Styles"
 import ToolBar from "../Component/NavBar/Toolbar"
+import Geojson from "../Component/Geojson"
 
 
 
@@ -27,6 +28,7 @@ function getMax (standard){
       max = data[key][standard];
     }
   }
+  console.log("max:"+max);
   return max;
 }
 
@@ -37,61 +39,26 @@ function getMin (standard, max){
       min = data[key][standard];
     }
   }
+  console.log("min:"+min);
   return min;
 }
 
-class Test extends Component {
+export default function Test(props) {
 
-    position = [-37.805, 145.00];
-    // classes = useStyles();
-    // const{standard,setStandard} = props;
-    state = {
-        standard : "for_sale_both_auction_private_treaty_medianprice"
-    }
+    const position = [-37.805, 145.00];
 
-    setStandard(name){
-        this.setState({name});
-    }
 
-    max = getMax(this.state.standard);
-    min = getMin(this.state.standard,this.max);
-
-    OnEachBlock = (block,layer) =>{
-      const suburbCode = block.properties.SA3_code;
-      const data = getData(suburbCode);
-      const suburbName = block.properties.SA3_name + "\n" + data;
-      layer.bindPopup(suburbName);
-      const number = getNumber(suburbCode,this.state.standard);
-      layer.options.fillOpacity = 0.2 + 0.2*(number - this.min)/((this.max - this.min)/4);
-
-      layer.on({ 
-        click: (event) =>{
-          event.target.setStyle({
-            fillColor: "#ee7a6d",
-          });
-          console.log(layer.options.fillOpacity);
-        },
-        // mouseover:(event) =>{
-        //   event.target.setStyle({
-        //     fillColor: "red",
-        //   });
-        // },
-      });
-    }
-    render(){
-      return (
-        <Grid item >
-        <ToolBar changeStandard={(name) =>this.setStandard(name)}/>
-        <MapContainer center={this.position} zoom={11} scrollWheelZoom={true} style={{ height: '90vh', width: '100%' }}>
-          <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <GeoJSON style={{color:"#885a5a",fillColor:"#ee7a6d",weight:"1"}} data={MelGeojson.features} onEachFeature={this.OnEachBlock}/>
-        </MapContainer>
-        </Grid>
-      );
-    }
+    const max = getMax(props.standard);
+    const min = getMin(props.standard,max);
+    console.log(props.standard);
+    
+    return (
+      <MapContainer center={position} zoom={12} scrollWheelZoom={true} style={{ height: '90vh', width: '100%' }}>
+        <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />      
+        <Geojson min={min} max={max} title={props.standard}/>
+      </MapContainer>
+    );
 }
-
-export default Test;

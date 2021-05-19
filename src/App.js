@@ -9,7 +9,7 @@ import MapPage from './Pages/MapPage';
 
 function App() {
   return (
-    <Test />
+    <MapPage />
   );
 }
 
