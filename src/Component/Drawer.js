@@ -31,32 +31,6 @@ const useStyles = makeStyles({
 
 export default function SideDrawer(props) {
   // const changeStandard = props;
-
-  const classes = useStyles();
-  const [state, setState] = React.useState({
-    left: true,
-  });
-  console.log(props.standard)
-
-  const [listopen, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!listopen);
-  };
-
-  const renderData = (event) => {
-    console.log(event.target.innerText);
-    props.changeStandard(event.target.innerText);
-  };
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
-
   const standards = [
     'auction_activity_auctionclearancerate',
     'auction_activity_auctionlistedcount',
@@ -74,6 +48,53 @@ export default function SideDrawer(props) {
     "sold_both_auction_private_treaty_totalprice",
   ];
 
+  const dates =[
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+  ];
+
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    left: true,
+  });
+  console.log(props.standard)
+
+  const [coloropen, setColorOpen] = React.useState(false);
+  const [dateopen, setDateOpen] = React.useState(false);
+
+
+  const handleColorClick = () => {
+    setColorOpen(!coloropen);
+  };
+
+  const handleDateClick = () => {
+    setDateOpen(!dateopen);
+  };
+
+
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const pickData = (event) => {
+    console.log(event.target.innerText);
+    props.changeStandard(event.target.innerText);
+    setColorOpen(!coloropen);
+  };
+
+  const pickDate = (event) => {
+    console.log(event.target.innerText);
+    props.changeStandard(event.target.innerText);
+    setDateOpen(!dateopen);
+  };
+
   const list = (anchor) => (
     <div
       className={clsx(classes.list, {
@@ -83,32 +104,41 @@ export default function SideDrawer(props) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem button onClick={handleClick}>
+        <ListItem button onClick={handleColorClick}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary="colored by" />
-          {listopen ? <ExpandLess /> : <ExpandMore />}
+          <ListItemText primary={"rank by: " + props.standard} />
+          {coloropen ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-        <Collapse in={listopen} timeout="auto" onClick={toggleDrawer(anchor, false)}>
+        <Collapse in={coloropen} timeout="auto" onClick={toggleDrawer(anchor, false)}>
           <List component="div" disablePadding>
             {standards.map((text) => (
-              <ListItem key={text} aria-label={text} button className={classes.nested} onClick={renderData}>
+              <ListItem key={text} aria-label={text} button className={classes.nested} onClick={pickData}>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
+        <Divider />
+        <ListItem button onClick={handleDateClick}>
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary={"filter time: " + ""} />
+          {dateopen ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={dateopen} timeout="auto" onClick={toggleDrawer(anchor, false)}>
+          <List component="div" disablePadding>
+            {dates.map((text) => (
+              <ListItem key={text} aria-label={text} button className={classes.nested} onClick={pickDate}>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
           </List>
         </Collapse>
       </List>
-      <Divider />
-      {/* <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
+      {/* <Divider /> */}
     </div>
   );
 

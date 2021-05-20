@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-// import useStyles from "../../styleConfig";
+import useStyles from "../../styleConfig";
 import ScenarioMenu from "./ScenarioMenu.js";
 import MapMenu from "./MapMenu";
 import HomeButton from "./HomeButton";
@@ -19,28 +19,25 @@ const classes = makeStyles((theme) => ({
   },
 }));
 
-class NavToolbar extends Component {
+export default function NavToolbar(props) {
 
   // const {changeStandard} = props;
-  // const classes = useStyles();
-  render(){
+  const classes = useStyles();
 
-    console.log(this.props.standard);
-    return (
-      // <div className={classes.root}>
-        <AppBar position="static" className={classes.root}>
-          <Toolbar>
-            <FilterDrawer standard={this.props.standard} changeStandard={(name) => this.props.setStandard(name)}/>
-            <Typography variant="h6">
-              Real estate Analyze
-            </Typography>
-            <ScenarioMenu />
-            <MapMenu setPosition={(position) => this.props.setPosition(position)}/>
-            <HomeButton />
-          </Toolbar >
-        </AppBar>
-      // </div>
-    );
-  }
+  console.log(props.standard);
+  return (
+    // <div className={classes.root}>
+      <AppBar position="static" className={classes.root}>
+        <Toolbar>
+          <FilterDrawer standard={props.standard} changeStandard={(name) => props.setStandard(name)}/>
+          <Typography variant="h6" className={classes.title}>
+            Real estate Analyze
+          </Typography>
+          <ScenarioMenu />
+          <MapMenu setPosition={(position) => props.setPosition(position)}/>
+          <HomeButton />
+        </Toolbar >
+      </AppBar>
+    // </div>
+  );
 }
-export default NavToolbar;

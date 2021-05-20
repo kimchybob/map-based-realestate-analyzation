@@ -4,8 +4,6 @@ import data from "../data/houseMarket_2019_Feb.json"
 import { GeoJSON } from 'react-leaflet'
 
 
-
-
 class Geojson extends Component{
     
 
@@ -26,21 +24,42 @@ class Geojson extends Component{
         })
     }
 
+    //when defining functions, what is the diffrence between fun=()=>{} and fun(){}  ??
+    popup(suburbName,title,number){
+        return (
+            <p>
+                suburbName + "\r" + number
+            </p>
+            
+        )
+    }
+
+    stringToHTML = function (str) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(str, 'text/html');
+        return doc.body;
+    };
 
     geojson(min,max,title){
         const OnEachBlock = (block,layer) => {
-            console.log(title);
             var suburbCode = block.properties.SA3_code;
             var suburbName = block.properties.SA3_name;
             var number = data[suburbCode][title];
             layer.options.fillOpacity= 0.2 + 0.2*(number - min)/((max - min)/4);
-            // console.log(layer);
-            // console.log(suburbName+layer.options.fillOpacity);
-            layer.bindPopup(suburbName+layer.options.fillOpacity);
+            // layer.popup().setContent('<p>Hello world!<br />This is a nice popup.</p>');
+            layer.bindPopup(this.stringToHTML(suburbName+"\n"+number)).openPopup();
+            // layer.on({ 
+            //     click: (event) =>{
+            //       event.target.setStyle({
+            //         fillColor: "#ee7a6d",
+            //       });
+            //     //   event.target.popup().setContent('<p>Hello world!<br />This is a nice popup.</p>')
+            //     },
+            //   });
             
         }
         return(
-            <GeoJSON style={{color:"#885a5a",fillColor:title=="sold_both_auction_private_treaty_totalprice"?"#885a5a":"#ee7a6d",weight:"1"}} data={MelGeojson.features} onEachFeature={OnEachBlock}/>
+            <GeoJSON key={this.props.title} style={{color:"#885a5a",fillColor:"#ee7a6d",weight:"1"}} data={MelGeojson.features} onEachFeature={OnEachBlock}/>
         );
     }
 

@@ -17,7 +17,6 @@ class MapPage extends Component {
 
     setStandard(standard){
         this.setState({standard: standard});
-        console.log(this.state.standard);
     }
 
     setPosition(position){
@@ -30,7 +29,6 @@ class MapPage extends Component {
 
         return (
             <Grid container>
-                {this.state.standard}
                 <ToolBar standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} setPosition={(position) =>this.setPosition(position)}/>
                 <Leaflet position={this.state.position} standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} onChange={this.stateChange}/>
             </Grid>
