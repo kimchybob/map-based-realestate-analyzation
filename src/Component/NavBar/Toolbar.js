@@ -35,7 +35,7 @@ class NavToolbar extends Component {
               Real estate Analyze
             </Typography>
             <ScenarioMenu />
-            <MapMenu />
+            <MapMenu setPosition={(position) => this.props.setPosition(position)}/>
             <HomeButton />
           </Toolbar >
         </AppBar>

@@ -23,6 +23,18 @@ class Leaflet extends Component {
     zoom: 10
   };
 
+  state={
+    position: this.props.posiion
+  };
+
+  componentWillReceiveProps (nextProps){
+    this.setState({
+        position: nextProps.position,
+    })
+  }
+
+
+
   getMax (standard){
     var max = 0;
     for (var key in data){
@@ -50,11 +62,13 @@ class Leaflet extends Component {
  
   render() {
     const position = [-37.805, 145.00];
+    console.log(this.state.position);
+    console.log(position);
     const max = this.getMax(this.props.standard);
     const min = this.getMin(this.props.standard,max);
 
       return (
-        <MapContainer center={position} zoom={11} scrollWheelZoom={true} style={{ height: '90vh', width: '100%' }}>
+        <MapContainer center={this.props.position} zoom={11} scrollWheelZoom={true} style={{ height: '90vh', width: '100%' }}>
           <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

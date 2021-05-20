@@ -34,8 +34,8 @@ class Geojson extends Component{
             var suburbName = block.properties.SA3_name;
             var number = data[suburbCode][title];
             layer.options.fillOpacity= 0.2 + 0.2*(number - min)/((max - min)/4);
-            console.log(layer);
-            console.log(suburbName+layer.options.fillOpacity);
+            // console.log(layer);
+            // console.log(suburbName+layer.options.fillOpacity);
             layer.bindPopup(suburbName+layer.options.fillOpacity);
             
         }

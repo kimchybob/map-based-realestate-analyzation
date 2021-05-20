@@ -10,24 +10,29 @@ import Leaflet from './Leaflet';
  
 class MapPage extends Component {    
     state = {
-        standard : "for_sale_both_auction_private_treaty_averageprice"
+        standard : "for_sale_both_auction_private_treaty_averageprice",
+        position : [-37.805, 145.00],
     }
 
 
     setStandard(standard){
-        this.setState({standard});
+        this.setState({standard: standard});
         console.log(this.state.standard);
+    }
+
+    setPosition(position){
+        this.setState({position:position});
     }
 
 
 
-    render() {
+    render() { 
 
         return (
             <Grid container>
                 {this.state.standard}
-                <ToolBar standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} />
-                <Leaflet standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} onChange={this.stateChange}/>
+                <ToolBar standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} setPosition={(position) =>this.setPosition(position)}/>
+                <Leaflet position={this.state.position} standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} onChange={this.stateChange}/>
             </Grid>
             
         );

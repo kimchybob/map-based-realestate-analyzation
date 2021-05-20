@@ -14,6 +14,21 @@ export default function MapMenu(props) {
     setAnchorEl(null);
   };
 
+  const clickedMelbourne = () => {
+    props.setPosition([-37.805, 145.00]);
+    setAnchorEl(null);
+  };
+
+  const clickedSydney = () => {
+    props.setPosition([-33.869, 151.209]);
+    setAnchorEl(null);
+  };
+
+  const clickedBrisbane = () => {
+    props.setPosition([-27.471, 153.026]);
+    setAnchorEl(null);
+  };
+
   return (
     <div>
     <Grid item xs={2}>
@@ -27,9 +42,9 @@ export default function MapMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={clickedMelbourne}>Melbourne</MenuItem>
+        <MenuItem onClick={clickedSydney}>Sydney</MenuItem>
+        <MenuItem onClick={clickedBrisbane}>Brisbane</MenuItem>
       </Menu>
     </Grid>
 
