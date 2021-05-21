@@ -32,21 +32,25 @@ const useStyles = makeStyles({
 export default function SideDrawer(props) {
   // const changeStandard = props;
   const standards = [
-    'auction_activity_auctionclearancerate',
-    'auction_activity_auctionlistedcount',
     'for_sale_both_auction_private_treaty_averageprice',
     'for_sale_both_auction_private_treaty_maximumprice',
-    "for_sale_both_auction_private_treaty_medianprice",
     "for_sale_both_auction_private_treaty_minimumprice",
-    "for_sale_both_auction_private_treaty_standarddeviationprice",
     "for_sale_both_auction_private_treaty_totalprice",
     "sold_both_auction_private_treaty_averageprice",
     "sold_both_auction_private_treaty_maximumprice",
-    "sold_both_auction_private_treaty_medianprice",
     "sold_both_auction_private_treaty_minimumprice",
-    "sold_both_auction_private_treaty_standarddeviationprice",
     "sold_both_auction_private_treaty_totalprice",
   ];
+
+  function formatStandard(standard){
+    var output = standard.split("_both_auction_private_treaty_");
+    return output[0] + " " + output[1];
+  }
+
+  function formatedBack(standard){
+    var output = standard.split(" ");
+    return output[0] + "_both_auction_private_treaty_" + output[1];
+  }
 
   const dates =[
     "2018",
@@ -84,8 +88,8 @@ export default function SideDrawer(props) {
   };
 
   const pickData = (event) => {
-    console.log(event.target.innerText);
-    props.changeStandard(event.target.innerText);
+    console.log(event);
+    props.changeStandard(formatedBack(event.target.innerText));
     setColorOpen(!coloropen);
   };
 
@@ -108,14 +112,14 @@ export default function SideDrawer(props) {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={"rank by: " + props.standard} />
+          <ListItemText primary={"rank by: " + formatStandard(props.standard)} />
           {coloropen ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={coloropen} timeout="auto" onClick={toggleDrawer(anchor, false)}>
           <List component="div" disablePadding>
             {standards.map((text) => (
               <ListItem key={text} aria-label={text} button className={classes.nested} onClick={pickData}>
-                <ListItemText primary={text} />
+                <ListItemText primary={formatStandard(text)} />
               </ListItem>
             ))}
           </List>
