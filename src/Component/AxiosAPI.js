@@ -1,29 +1,39 @@
 import React from 'react';
-
 import axios from 'axios';
-// headers = {'header1': value}
 
-export default function AxiosAPI () {
-//   state = {
-//     persons: []
-//   }
-  const [state,setState] = React.useState({persons: []});
+class AxiosAPI extends React.Component {
+    constructor(props) {
+        super(props);
 
-//   const getfile = () => { 
-    axios.get(`http://admin:admin@172.26.131.149:5984/aurin-geo/bne`, {
-        headers: {
-            'Authorization': 'Basic YWRtaW46YWRtaW4='
-        }
-    })
-    .then(res => {
-    console.log(res.data);
-    })
-//   }
+        this.state = {
+            totalReactPackages: null
+        };
+    }
 
+    componentDidMount() {
+        // Simple GET request using axios
+        axios.get('http://admin:admin@172.26.131.149:5984/aurin-geo/bne', {
+        headers: {'Authorization': 'Basic YWRtaW46YWRtaW4='}
+        }).then(
+            response => {
+                this.setState({ totalReactPackages: response.data });
+                console.log(response)
+            }
+        );
+    }
 
-    return (
-        <p>
-            hello world
-        </p>
-    )
+    render() {
+        this.componentDidMount();
+        const { totalReactPackages } = this.state;
+        return (
+            <div className="card text-center m-3">
+                <h5 className="card-header">Simple GET Request</h5>
+                <div className="card-body">
+                    Total react packages: {totalReactPackages}
+                </div>
+            </div>
+        );
+    }
 }
+
+export { AxiosAPI }; 
