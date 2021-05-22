@@ -14,9 +14,11 @@ class MapPage extends Component {
         super(props);
 
         this.state = {
-            standard : "for_sale_both_auction_private_treaty_averageprice",
+            standard : "ForsaleYearAverage",
             position : "mel",
             shapeFile: null,
+            date: "2019",
+            propertyType: "House"
         };
         this.getFile("mel");
     }  
@@ -42,6 +44,14 @@ class MapPage extends Component {
         this.getFile(position);
     }
 
+    setDate(date){
+        this.setState({date: date});
+    }
+
+    setPropertyType(propertyType){
+        this.setState({propertyType: propertyType});
+    }
+
     getFile(position){
         var url = 'http://admin:admin@172.26.131.149:5984/aurin-geo/' + position;
         console.log('http://admin:admin@172.26.131.149:5984/aurin-geo/' + position);
@@ -61,7 +71,12 @@ class MapPage extends Component {
             position: this.state.position,
             shapeFile: this.state.shapeFile,
             standard: this.state.standard,
+            date: this.state.date,
+            propertyType: this.state.propertyType,
         }
+        // const functions ={
+            
+        // }
         return (
             <Grid container>
                 <ToolBar standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} setPosition={(position) =>this.setPosition(position)}/>

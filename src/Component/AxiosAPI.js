@@ -12,7 +12,8 @@ class AxiosAPI extends React.Component {
 
     componentDidMount() {
         // Simple GET request using axios
-        axios.get('http://admin:admin@172.26.131.149:5984/aurin-geo/bne', {
+        const url = "http://admin:admin@172.26.131.149:5984/aurin-property/_design/housePrice/_view/SoldYearMinimum?group_level=4&startkey=%5B2019%2C%22House%22%2C%22NSW%22%5D&endkey=%5B2019%2C%22House%22%2C%22NSW%22%2C%7B%7D%5D";
+        axios.get(url, {
         headers: {'Authorization': 'Basic YWRtaW46YWRtaW4='}
         }).then(
             response => {

@@ -6,7 +6,9 @@ import data from "../data/houseMarket_2019_Feb.json"
 import "leaflet/dist/leaflet.css" 
 import PopupCard from "../Component/PopupCard"
 import { makeStyles } from "@material-ui/core/styles";
-import Geojson from "../Component/Geojson"
+import Geojson from "../Component/Geojson";
+import axios from 'axios';
+
 
 
 
@@ -14,44 +16,76 @@ import Geojson from "../Component/Geojson"
 
  
 class Leaflet extends Component {
-  
+  constructor(props) {
+    super(props);
 
-  // state={
-  //   position: this.props.attributes.position,
-  //   standard : this.props.attributes.standard,
-  //   shapeFile :this.props.attributes.shapeFile
-  // };
+    this.state = {
+      data : null,
+      max: 0,
+      min: 0,
+      dict : null,
+    };
+    this.getData(this.props.attributes.date,this.props.attributes.propertyType,this.props.attributes.position,this.props.attributes.standard);
+}
 
-  // componentWillReceiveProps (nextProps){
-  //   this.setState({
-  //       position: nextProps.attributes.position,
-  //       standard : nextProps.attributes.standard,
-  //       shapeFile :nextProps.attributes.shapeFile
-  //   })
-  // }
+  componentWillReceiveProps (nextProps){
+    // console.log(nextProps)
+    this.getData(nextProps.attributes.date,nextProps.attributes.propertyType,nextProps.attributes.position,nextProps.attributes.standard);
+  }
+
+  cityToState(position){
+    if(position == "mel") return "VIC";
+    else if(position== "syd") return "NSW";
+    else return "QLD";
+  }
+
+  getData(date,propertyType,position,title){
+    console.log(date+propertyType+position+title);
+    const startkey = "startkey=%5B"+date+"%2C%22"+propertyType+"%22%2C%22"+this.cityToState(position)+"%22%5D&";
+    const endkey = "endkey=%5B"+date+"%2C%22"+propertyType+"%22%2C%22"+this.cityToState(position)+"%22%2C%7B%7D%5D"
+    var url = "http://admin:admin@172.26.131.149:5984/aurin-property/_design/housePrice/_view/"+title+"?group_level=4&"+startkey+endkey;
+    axios.get(url, {headers: {'Authorization': 'Basic YWRtaW46YWRtaW4='}})
+    .then(
+        response => {
+          console.log(response);
+          this.setState({ data: response.data.rows });
+          this.getMax(response.data.rows);
+        }
+    );
+    
+}
 
 
 
-  getMax (standard){
+  getMax (data){
     var max = 0;
+    const dict = new Object();
     for (var key in data){
-      if(data[key][standard] != undefined && max < data[key][standard]){
-        max = data[key][standard];
+      var temp = data[key].value[0];
+      if(temp != null){
+        dict[data[key].key[3]] = temp;
+      }
+      if(temp != undefined && max < temp){
+        max = temp;
+        // console.log(max);
       }
     }
-    // console.log("max:"+max);
-    return max;
+    this.setState({dict: dict});
+    this.setState({ max: max });
+    this.getMin(data,max);
   };
 
-  getMin (standard, max){
+  getMin (data,max){
     var min = max;
     for (var key in data){
-      if(data[key][standard] != undefined && min > data[key][standard]){
-        min = data[key][standard];
+      var temp = data[key].value[0];
+      if(temp != undefined && min > temp){
+        min = temp;
+        // console.log(min);
       }
     }
     // console.log("min:"+min);
-    return min;
+    this.setState({ min: min });
   };
 
   convertToLocation(position){
@@ -63,13 +97,14 @@ class Leaflet extends Component {
 
  
   render() {
-    const max = this.getMax(this.props.attributes.standard);
-    const min = this.getMin(this.props.attributes.standard,max);
+    console.log(this.props.attributes);
+    const max = 0;
+    const min = 0;
     const attributes = {
       shapeFile : this.props.attributes.shapeFile,
-      min : min,
-      max: max,
-      title : this.props.attributes.standard,
+      min : this.state.min,
+      max: this.state.max,  
+      dict: this.state.dict,
     }
 
     return (

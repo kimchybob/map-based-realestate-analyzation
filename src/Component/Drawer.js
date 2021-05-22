@@ -32,25 +32,36 @@ const useStyles = makeStyles({
 export default function SideDrawer(props) {
   // const changeStandard = props;
   const standards = [
-    'for_sale_both_auction_private_treaty_averageprice',
-    'for_sale_both_auction_private_treaty_maximumprice',
-    "for_sale_both_auction_private_treaty_minimumprice",
-    "for_sale_both_auction_private_treaty_totalprice",
-    "sold_both_auction_private_treaty_averageprice",
-    "sold_both_auction_private_treaty_maximumprice",
-    "sold_both_auction_private_treaty_minimumprice",
-    "sold_both_auction_private_treaty_totalprice",
+    'ForsaleYearAverage',
+    'ForsaleYearMaximum',
+    "ForsaleYearMinimum",
+    "ForsaleYearTotal",
+    "SoldYearAverage",
+    "SoldYearMaximum",
+    "SoldYearMinimum",
+    "SoldYearTotal",
   ];
 
-  function formatStandard(standard){
-    var output = standard.split("_both_auction_private_treaty_");
-    return output[0] + " " + output[1];
-  }
+  const para = [
+    'for_sale_average_price',
+    'for_sale_maximum_price',
+    "for_sale_minimum_price",
+    "for_sale_total_price",
+    "sold_average_price",
+    "sold_maximum_price",
+    "sold_minimum_price",
+    "sold_total_price",
+  ];
 
-  function formatedBack(standard){
-    var output = standard.split(" ");
-    return output[0] + "_both_auction_private_treaty_" + output[1];
-  }
+  // function formatStandard(standard){
+  //   var output = standard.split("_both_auction_private_treaty_");
+  //   return output[0] + " " + output[1];
+  // }
+
+  // function formatedBack(standard){
+  //   var output = standard.split(" ");
+  //   return output[0] + "_both_auction_private_treaty_" + output[1];
+  // }
 
   const dates =[
     "2018",
@@ -58,6 +69,11 @@ export default function SideDrawer(props) {
     "2020",
     "2021"
   ];
+
+  const propertyType =[
+    "House",
+    "Unit"
+];
 
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -67,6 +83,7 @@ export default function SideDrawer(props) {
 
   const [coloropen, setColorOpen] = React.useState(false);
   const [dateopen, setDateOpen] = React.useState(false);
+  const [propertyopen, setPropertyOpen] = React.useState(false);
 
 
   const handleColorClick = () => {
@@ -75,6 +92,10 @@ export default function SideDrawer(props) {
 
   const handleDateClick = () => {
     setDateOpen(!dateopen);
+  };
+
+  const handlePropertyClick = () => {
+    setPropertyOpen(!propertyopen);
   };
 
 
@@ -87,9 +108,9 @@ export default function SideDrawer(props) {
     setState({ ...state, [anchor]: open });
   };
 
-  const pickData = (event) => {
+  const pickTitle = (event) => {
     // console.log(event);
-    props.changeStandard(formatedBack(event.target.innerText));
+    props.changeStandard(event.target.innerText);
     setColorOpen(!coloropen);
   };
 
@@ -97,6 +118,12 @@ export default function SideDrawer(props) {
     // console.log(event.target.innerText);
     props.changeStandard(event.target.innerText);
     setDateOpen(!dateopen);
+  };
+
+  const pickProperty = (event) => {
+    // console.log(event.target.innerText);
+    props.changeStandard(event.target.innerText);
+    setPropertyOpen(!propertyopen);
   };
 
   const list = (anchor) => (
@@ -112,14 +139,14 @@ export default function SideDrawer(props) {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={"rank by: " + formatStandard(props.standard)} />
+          <ListItemText primary={"rank by: " + props.standard} />
           {coloropen ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={coloropen} timeout="auto" onClick={toggleDrawer(anchor, false)}>
           <List component="div" disablePadding>
             {standards.map((text) => (
-              <ListItem key={text} aria-label={text} button className={classes.nested} onClick={pickData}>
-                <ListItemText primary={formatStandard(text)} />
+              <ListItem key={text} aria-label={text} button className={classes.nested} onClick={pickTitle}>
+                <ListItemText primary={text} />
               </ListItem>
             ))}
           </List>
@@ -136,6 +163,23 @@ export default function SideDrawer(props) {
           <List component="div" disablePadding>
             {dates.map((text) => (
               <ListItem key={text} aria-label={text} button className={classes.nested} onClick={pickDate}>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
+        <Divider />
+        <ListItem button onClick={handlePropertyClick}>
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Property Type: " + ""} />
+          {propertyopen ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={propertyopen} timeout="auto" onClick={toggleDrawer(anchor, false)}>
+          <List component="div" disablePadding>
+            {propertyType.map((text) => (
+              <ListItem key={text} aria-label={text} button className={classes.nested} onClick={pickProperty}>
                 <ListItemText primary={text} />
               </ListItem>
             ))}

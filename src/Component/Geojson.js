@@ -1,6 +1,6 @@
 import { Component } from "react";
 // import MelGeojson from "../data/SA3Geo.json"
-import data from "../data/houseMarket_2019_Feb.json"
+// import data from "../data/houseMarket_2019_Feb.json"
 import { GeoJSON } from 'react-leaflet'
 import axios from 'axios';
 import makeRequest from"./test"
@@ -9,8 +9,7 @@ import makeRequest from"./test"
 
 class Geojson extends Component{
     state={
-        data: null,
-        index: this.props.attributes.title+this.props.attributes.shapeFile,
+        index: this.props.attributes.dict+this.props.attributes.shapeFile,
     }
 
     componentWillReceiveProps (nextProps){
@@ -21,13 +20,17 @@ class Geojson extends Component{
 
 
 
-    geojson(min,max,title){
+    geojson(min,max){
         const OnEachBlock = (block,layer) => {
             var suburbCode = block.properties.SA3_code;
             var suburbName = block.properties.SA3_name;
-            // var number = data[suburbCode][title];
-            // layer.options.fillOpacity= 0.2 + 0.2*(number - min)/((max - min)/4);
-            layer.options.fillOpacity = 0.5;
+            if(this.props.attributes.dict != null){
+                var number = this.props.attributes.dict[suburbCode];
+                layer.options.fillOpacity= 0.2 + 0.2*(number - min)/((max - min)/4);
+            }
+            else{
+                layer.options.fillOpacity = 0.5;
+            }
             layer.bindPopup(suburbName);
             // layer.on({ 
             //     click: (event) =>{
@@ -47,10 +50,10 @@ class Geojson extends Component{
 
     render(){
         // this.getFile();
-        // console.log(this.props.attributes)
+        console.log(this.props.attributes)
         console.log(this.props.attributes.shapeFile)
         return (
-            this.geojson(this.props.attributes.min,this.props.attributes.max,this.props.attributes.title)
+            this.geojson(this.props.attributes.min,this.props.attributes.max)
         )
     }
 }
