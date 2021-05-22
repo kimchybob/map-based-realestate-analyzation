@@ -23,8 +23,8 @@ class AxiosAPI extends React.Component {
     }
 
     render() {
-        this.componentDidMount();
         const { totalReactPackages } = this.state;
+        console.log(this.state.totalReactPackages)
         return (
             <div className="card text-center m-3">
                 <h5 className="card-header">Simple GET Request</h5>

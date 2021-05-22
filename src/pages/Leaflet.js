@@ -15,26 +15,20 @@ import Geojson from "../Component/Geojson"
  
 class Leaflet extends Component {
   
-  static defaultProps = {
-    center: {
-      lat: -37.945,
-      lng: 145.35
-    },
-    zoom: 10
-  };
 
-  state={
-    position: this.props.position,
-    standard : this.props.standard,
-    keyMAP: Math.random(),
-  };
+  // state={
+  //   position: this.props.attributes.position,
+  //   standard : this.props.attributes.standard,
+  //   shapeFile :this.props.attributes.shapeFile
+  // };
 
-  componentWillReceiveProps (nextProps){
-    this.setState({
-        position: nextProps.position,
-        standard : nextProps.standard,
-    })
-  }
+  // componentWillReceiveProps (nextProps){
+  //   this.setState({
+  //       position: nextProps.attributes.position,
+  //       standard : nextProps.attributes.standard,
+  //       shapeFile :nextProps.attributes.shapeFile
+  //   })
+  // }
 
 
 
@@ -45,7 +39,7 @@ class Leaflet extends Component {
         max = data[key][standard];
       }
     }
-    console.log("max:"+max);
+    // console.log("max:"+max);
     return max;
   };
 
@@ -56,26 +50,38 @@ class Leaflet extends Component {
         min = data[key][standard];
       }
     }
-    console.log("min:"+min);
+    // console.log("min:"+min);
     return min;
   };
 
+  convertToLocation(position){
+    if(position == "mel") return [-37.805, 145.00];
+    else if(position== "syd") return [-33.869, 151.209];
+    else return [-27.471, 153.026];
+}
   
 
  
   render() {
-    const max = this.getMax(this.props.standard);
-    const min = this.getMin(this.props.standard,max);
+    const max = this.getMax(this.props.attributes.standard);
+    const min = this.getMin(this.props.attributes.standard,max);
+    const attributes = {
+      shapeFile : this.props.attributes.shapeFile,
+      min : min,
+      max: max,
+      title : this.props.attributes.standard,
+    }
 
-      return (
-        <MapContainer key={this.props.position} center={this.props.position} zoom={11} scrollWheelZoom={true} style={{ height: '90vh', width: '100%' }}>
-          <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Geojson min={min} max={max} title={this.props.standard}/>
-        </MapContainer>
-      );
+    return (
+      <MapContainer key={this.props.attributes.position} center={this.convertToLocation(this.props.attributes.position)} zoom={11} scrollWheelZoom={true} style={{ height: '90vh', width: '100%' }}>
+        <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {/* <Geojson shapeFile={this.props.shapeFile} min={min} max={max} title={this.props.standard}/> */}
+        <Geojson attributes={attributes}/>
+      </MapContainer>
+    );
     }
   }
 

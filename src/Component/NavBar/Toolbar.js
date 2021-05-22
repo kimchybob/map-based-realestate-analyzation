@@ -24,7 +24,7 @@ export default function NavToolbar(props) {
   // const {changeStandard} = props;
   const classes = useStyles();
 
-  console.log(props.standard);
+  // console.log(props.standard);
   return (
     // <div className={classes.root}>
       <AppBar position="static" className={classes.root}>

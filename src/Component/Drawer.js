@@ -63,7 +63,7 @@ export default function SideDrawer(props) {
   const [state, setState] = React.useState({
     left: true,
   });
-  console.log(props.standard)
+  // console.log(props.standard)
 
   const [coloropen, setColorOpen] = React.useState(false);
   const [dateopen, setDateOpen] = React.useState(false);
@@ -88,13 +88,13 @@ export default function SideDrawer(props) {
   };
 
   const pickData = (event) => {
-    console.log(event);
+    // console.log(event);
     props.changeStandard(formatedBack(event.target.innerText));
     setColorOpen(!coloropen);
   };
 
   const pickDate = (event) => {
-    console.log(event.target.innerText);
+    // console.log(event.target.innerText);
     props.changeStandard(event.target.innerText);
     setDateOpen(!dateopen);
   };
