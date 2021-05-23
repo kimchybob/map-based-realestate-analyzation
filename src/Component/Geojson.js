@@ -27,7 +27,7 @@ class Geojson extends Component{
             if(this.props.attributes.dict != null){
                 var number = this.props.attributes.dict[suburbCode];
                 layer.options.fillOpacity= 0.2 + 0.2*(number - min)/((max - min)/4);
-                layer.bindPopup(suburbName+" \n"+number);
+                layer.bindPopup(suburbName+" \n"+number+"  population:"+this.props.attributes.population[suburbCode]);
             }
             else{
                 layer.options.fillOpacity = 0.5;
@@ -51,7 +51,7 @@ class Geojson extends Component{
 
     render(){
         // this.getFile();
-        // console.log(this.props.attributes)
+        console.log(this.props.attributes)
         // console.log(this.props.attributes.shapeFile)
         return (
             this.geojson(this.props.attributes.min,this.props.attributes.max)

@@ -5,6 +5,8 @@ import ToolBar from "../Component/NavBar/Toolbar"
 import Test from './test';
 import Leaflet from './Leaflet';
 import axios from 'axios';
+import Scenario from './Scenario';
+import HomePage from "./HomePage";
 
 
 
@@ -18,15 +20,11 @@ class MapPage extends Component {
             position : "mel",
             shapeFile: null,
             date: "2019",
-            propertyType: "House"
+            propertyType: "House",
+            display: "home"
         };
         this.getFile("mel");
     }  
-    // state = {
-    //     standard : "for_sale_both_auction_private_treaty_averageprice",
-    //     position : [-37.805, 145.00],
-    //     shapeFile: null,
-    // }
 
     convertToLocation(position){
         if(position == "mel") return [-37.805, 145.00];
@@ -34,6 +32,9 @@ class MapPage extends Component {
         else return [-27.471, 153.026];
     }
 
+    setDisplay(name){
+        this.setState({display: name});
+    }
 
     setStandard(standard){
         this.setState({standard: standard});
@@ -79,12 +80,18 @@ class MapPage extends Component {
             setPosition: (position) =>this.setPosition(position),
             setDate: (date) =>this.setDate(date),
             setPropertyType: (propertyType) =>this.setPropertyType(propertyType),
+            setDisplay: (name) => this.setDisplay(name),
         }
         return (
             <Grid container>
                 {/* <ToolBar attributes={attributes} setStandard={(name) =>this.setStandard(name)} setPosition={(position) =>this.setPosition(position)}/> */}
                 <ToolBar attributes={attributes} functions={functions}/>
+                {this.state.display == "map"?
                 <Leaflet attributes={attributes} setStandard={(name) =>this.setStandard(name)} onChange={this.stateChange}/>
+                :this.state.display == "scenario"?
+                <Scenario attributes={attributes}/>
+                :<HomePage />}
+                
             </Grid>
             
         );

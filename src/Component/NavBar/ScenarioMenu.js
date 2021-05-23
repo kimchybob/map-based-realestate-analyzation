@@ -14,11 +14,29 @@ export default function ScenarioMenu(props) {
     setAnchorEl(null);
   };
 
+  const clickedMelbourne = () => {
+    props.functions.setDisplay("scenario");
+    props.functions.setPosition("mel");
+    setAnchorEl(null);
+  };
+
+  const clickedSydney = () => {
+    props.functions.setDisplay("scenario");
+    props.functions.setPosition("syd");
+    setAnchorEl(null);
+  };
+
+  const clickedBrisbane = () => {
+    props.functions.setDisplay("scenario");
+    props.functions.setPosition("bne");
+    setAnchorEl(null);
+  };
+
   return (
     <div>
     <Grid item xs={2}>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} className={classes.navbarButton}>
-        Scenario
+        Statistics
       </Button>
       <Menu
         id="simple-menu"
@@ -27,9 +45,9 @@ export default function ScenarioMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={clickedMelbourne}>Melbourne</MenuItem>
+        <MenuItem onClick={clickedSydney}>Sydney</MenuItem>
+        <MenuItem onClick={clickedBrisbane}>Brisbane</MenuItem>
       </Menu>
     </Grid>
 

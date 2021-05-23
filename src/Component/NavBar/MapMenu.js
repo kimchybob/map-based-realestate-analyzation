@@ -15,20 +15,20 @@ export default function MapMenu(props) {
   };
 
   const clickedMelbourne = () => {
-    // props.setPosition([-37.805, 145.00]);
-    props.setPosition("mel");
+    props.functions.setDisplay("map");
+    props.functions.setPosition("mel");
     setAnchorEl(null);
   };
 
   const clickedSydney = () => {
-    // props.setPosition([-33.869, 151.209]);
-    props.setPosition("syd");
+    props.functions.setDisplay("map");
+    props.functions.setPosition("syd");
     setAnchorEl(null);
   };
 
   const clickedBrisbane = () => {
-    // props.setPosition([-27.471, 153.026]);
-    props.setPosition("bne");
+    props.functions.setDisplay("map");
+    props.functions.setPosition("bne");
     setAnchorEl(null);
   };
 
