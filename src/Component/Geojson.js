@@ -50,8 +50,8 @@ class Geojson extends Component{
 
     render(){
         // this.getFile();
-        console.log(this.props.attributes)
-        console.log(this.props.attributes.shapeFile)
+        // console.log(this.props.attributes)
+        // console.log(this.props.attributes.shapeFile)
         return (
             this.geojson(this.props.attributes.min,this.props.attributes.max)
         )

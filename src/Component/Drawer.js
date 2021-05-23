@@ -53,16 +53,6 @@ export default function SideDrawer(props) {
     "sold_total_price",
   ];
 
-  // function formatStandard(standard){
-  //   var output = standard.split("_both_auction_private_treaty_");
-  //   return output[0] + " " + output[1];
-  // }
-
-  // function formatedBack(standard){
-  //   var output = standard.split(" ");
-  //   return output[0] + "_both_auction_private_treaty_" + output[1];
-  // }
-
   const dates =[
     "2018",
     "2019",
@@ -110,19 +100,19 @@ export default function SideDrawer(props) {
 
   const pickTitle = (event) => {
     // console.log(event);
-    props.changeStandard(event.target.innerText);
+    props.functions.setStandard(event.target.innerText);
     setColorOpen(!coloropen);
   };
 
   const pickDate = (event) => {
     // console.log(event.target.innerText);
-    props.changeStandard(event.target.innerText);
+    props.functions.setDate(event.target.innerText);
     setDateOpen(!dateopen);
   };
 
   const pickProperty = (event) => {
     // console.log(event.target.innerText);
-    props.changeStandard(event.target.innerText);
+    props.functions.setPropertyType(event.target.innerText);
     setPropertyOpen(!propertyopen);
   };
 
@@ -139,7 +129,7 @@ export default function SideDrawer(props) {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={"rank by: " + props.standard} />
+          <ListItemText primary={"rank by: " + props.attributes.standard} />
           {coloropen ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={coloropen} timeout="auto" onClick={toggleDrawer(anchor, false)}>
@@ -156,7 +146,7 @@ export default function SideDrawer(props) {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={"filter time: " + ""} />
+          <ListItemText primary={"filter time: " + props.attributes.date} />
           {dateopen ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={dateopen} timeout="auto" onClick={toggleDrawer(anchor, false)}>
@@ -173,7 +163,7 @@ export default function SideDrawer(props) {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={"Property Type: " + ""} />
+          <ListItemText primary={"Property Type: " + props.attributes.propertyType} />
           {propertyopen ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={propertyopen} timeout="auto" onClick={toggleDrawer(anchor, false)}>

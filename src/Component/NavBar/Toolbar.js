@@ -24,17 +24,17 @@ export default function NavToolbar(props) {
   // const {changeStandard} = props;
   const classes = useStyles();
 
-  // console.log(props.standard);
+  // console.log(props);
   return (
     // <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
-          <FilterDrawer standard={props.standard} changeStandard={(name) => props.setStandard(name)}/>
+          <FilterDrawer attributes={props.attributes} functions={props.functions}/>
           <Typography variant="h6" className={classes.title}>
             Real estate Analyze
           </Typography>
           <ScenarioMenu />
-          <MapMenu setPosition={(position) => props.setPosition(position)}/>
+          <MapMenu setPosition={(position) => props.functions.setPosition(position)}/>
           <HomeButton />
         </Toolbar >
       </AppBar>

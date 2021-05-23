@@ -74,12 +74,16 @@ class MapPage extends Component {
             date: this.state.date,
             propertyType: this.state.propertyType,
         }
-        // const functions ={
-            
-        // }
+        const functions ={
+            setStandard: (name) =>this.setStandard(name),
+            setPosition: (position) =>this.setPosition(position),
+            setDate: (date) =>this.setDate(date),
+            setPropertyType: (propertyType) =>this.setPropertyType(propertyType),
+        }
         return (
             <Grid container>
-                <ToolBar standard={this.state.standard} setStandard={(name) =>this.setStandard(name)} setPosition={(position) =>this.setPosition(position)}/>
+                {/* <ToolBar attributes={attributes} setStandard={(name) =>this.setStandard(name)} setPosition={(position) =>this.setPosition(position)}/> */}
+                <ToolBar attributes={attributes} functions={functions}/>
                 <Leaflet attributes={attributes} setStandard={(name) =>this.setStandard(name)} onChange={this.stateChange}/>
             </Grid>
             

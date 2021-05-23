@@ -61,9 +61,10 @@ class Leaflet extends Component {
     var max = 0;
     const dict = new Object();
     for (var key in data){
-      var temp = data[key].value[0];
+      var temp = data[key].value.length>1?data[key].value[0]:data[key].value;
       if(temp != null){
         dict[data[key].key[3]] = temp;
+        console.log(temp)
       }
       if(temp != undefined && max < temp){
         max = temp;
@@ -78,7 +79,7 @@ class Leaflet extends Component {
   getMin (data,max){
     var min = max;
     for (var key in data){
-      var temp = data[key].value[0];
+      var temp = data[key].value.length>1?data[key].value[0]:data[key].value;
       if(temp != undefined && min > temp){
         min = temp;
         // console.log(min);
@@ -97,7 +98,7 @@ class Leaflet extends Component {
 
  
   render() {
-    console.log(this.props.attributes);
+    // console.log(this.props.attributes);
     const max = 0;
     const min = 0;
     const attributes = {
