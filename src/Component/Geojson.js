@@ -27,11 +27,12 @@ class Geojson extends Component{
             if(this.props.attributes.dict != null){
                 var number = this.props.attributes.dict[suburbCode];
                 layer.options.fillOpacity= 0.2 + 0.2*(number - min)/((max - min)/4);
+                layer.bindPopup(suburbName+" \n"+number);
             }
             else{
                 layer.options.fillOpacity = 0.5;
+                layer.bindPopup(suburbName);
             }
-            layer.bindPopup(suburbName);
             // layer.on({ 
             //     click: (event) =>{
             //       event.target.setStyle({

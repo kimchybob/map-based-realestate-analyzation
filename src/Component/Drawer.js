@@ -40,6 +40,7 @@ export default function SideDrawer(props) {
     "SoldYearMaximum",
     "SoldYearMinimum",
     "SoldYearTotal",
+    "ClearanceRate"
   ];
 
   const para = [
