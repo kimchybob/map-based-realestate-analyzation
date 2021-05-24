@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import ToolBar from "../Component/NavBar/Toolbar"
-// import Leaflet from './Pages/Leaflet';
-import Test from './test';
 import Leaflet from './Leaflet';
 import axios from 'axios';
 import Scenario from './Scenario';
@@ -54,8 +52,10 @@ class MapPage extends Component {
     }
 
     getFile(position){
-        var url = 'http://admin:admin@172.26.131.149:5984/aurin-geo/' + position;
-        console.log('http://admin:admin@172.26.131.149:5984/aurin-geo/' + position);
+        // let ip = window.location.host;
+        // ip = ip.split(":")[0];
+        var url = "http://admin:admin@172.26.133.91:5984/aurin-geo/" + position;
+        // console.log('http://admin:admin@172.26.131.149:5984/aurin-geo/' + position);
         // var url = 'http://admin:admin@172.26.131.149:5984/aurin-geo/mel';
         axios.get(url, {headers: {'Authorization': 'Basic YWRtaW46YWRtaW4='}})
         .then(
@@ -83,17 +83,19 @@ class MapPage extends Component {
             setDisplay: (name) => this.setDisplay(name),
         }
         return (
-            <Grid container>
+            <Grid container direction="column">
                 {/* <ToolBar attributes={attributes} setStandard={(name) =>this.setStandard(name)} setPosition={(position) =>this.setPosition(position)}/> */}
-                <ToolBar attributes={attributes} functions={functions}/>
-                {this.state.display == "map"?
-                <Leaflet attributes={attributes} setStandard={(name) =>this.setStandard(name)} onChange={this.stateChange}/>
-                :this.state.display == "scenario"?
-                <Scenario attributes={attributes}/>
-                :<HomePage />}
-                
+                <Grid item xs={12}>
+                    <ToolBar attributes={attributes} functions={functions}/>
+                </Grid>
+                <Grid container item  xs={12}>
+                    {this.state.display == "map"?
+                    <Leaflet attributes={attributes} setStandard={(name) =>this.setStandard(name)} onChange={this.stateChange}/>
+                    :this.state.display == "scenario"?
+                    <Scenario attributes={attributes}/>
+                    :<HomePage />}
+                </Grid>
             </Grid>
-            
         );
     }
 }

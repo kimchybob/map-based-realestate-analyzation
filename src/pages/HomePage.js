@@ -17,7 +17,7 @@ export default class HomePage extends Component{
 //渲染页面
 render(){
         return (
-            <img src={Background} alt="Logo" style={{width: "100%",height:"712px"}}/>
+            <img src={Background} alt="Logo" style={{width: "100%",height:"92vh"}}/>
         )
 
     }

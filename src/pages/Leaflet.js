@@ -45,7 +45,7 @@ class Leaflet extends Component {
   getPopulation(date,position){
     const startkey= "startkey=%5B"+date+"%2C%22"+position+"%22%5D&";
     const endkey = "endkey=%5B"+date+"%2C%22"+position+"%22%2C%7B%7D%5D";
-    const url="http://admin:admin@172.26.131.149:5984/aurin-population/_design/population/_view/population?group_level=3&"+startkey+endkey;
+    const url="http://admin:admin@172.26.133.91:5984/aurin-population/_design/population/_view/population?group_level=3&"+startkey+endkey;
     axios.get(url, {headers: {'Authorization': 'Basic YWRtaW46YWRtaW4='}})
     .then(
         response => {
@@ -68,7 +68,7 @@ class Leaflet extends Component {
     // console.log(date+propertyType+position+title);
     const startkey = "startkey=%5B"+date+"%2C%22"+propertyType+"%22%2C%22"+this.cityToState(position)+"%22%5D&";
     const endkey = "endkey=%5B"+date+"%2C%22"+propertyType+"%22%2C%22"+this.cityToState(position)+"%22%2C%7B%7D%5D";
-    var url = "http://admin:admin@172.26.131.149:5984/aurin-property/_design/housePrice/_view/"+title+"?group_level=4&"+startkey+endkey;
+    var url = "http://admin:admin@172.26.133.91:5984/aurin-property/_design/housePrice/_view/"+title+"?group_level=4&"+startkey+endkey;
     axios.get(url, {headers: {'Authorization': 'Basic YWRtaW46YWRtaW4='}})
     .then(
         response => {

@@ -3,7 +3,7 @@ import { Component } from "react";
 // import data from "../data/houseMarket_2019_Feb.json"
 import { GeoJSON } from 'react-leaflet'
 import axios from 'axios';
-import makeRequest from"./test"
+// import makeRequest from"./test"
 
 
 
@@ -51,7 +51,7 @@ class Geojson extends Component{
 
     render(){
         // this.getFile();
-        console.log(this.props.attributes)
+        // console.log(this.props.attributes)
         // console.log(this.props.attributes.shapeFile)
         return (
             this.geojson(this.props.attributes.min,this.props.attributes.max)
