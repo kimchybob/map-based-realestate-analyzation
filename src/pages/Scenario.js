@@ -1,6 +1,5 @@
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import Piechart from '../Component/PieChart';
 import PopupCard from '../Component/PopupCard';
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';

@@ -8,6 +8,7 @@ import HomePage from "./HomePage";
 
 
 
+
  
 class MapPage extends Component {  
     constructor(props) {
@@ -21,8 +22,8 @@ class MapPage extends Component {
             propertyType: "House",
             display: "home",
             population: null,
-            ip: window.location.host.split(":")[0],
-            // ip: "172.26.132.96"
+            // ip: window.location.host.split(":")[0],
+            ip: "172.26.132.96"
         };
         this.getFile(this.state.position);
         this.getPopulation(this.state.position);

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { MapContainer, TileLayer, Map, Popup, GeoJSON } from 'react-leaflet'
-import MelGeojson from "../data/SA3Geo.json"
-import data from "../data/houseMarket_2019_Feb.json"
 import "leaflet/dist/leaflet.css" 
 import PopupCard from "../Component/PopupCard"
 import { makeStyles } from "@material-ui/core/styles";
